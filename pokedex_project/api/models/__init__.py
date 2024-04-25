@@ -1,6 +1,8 @@
 from .users import User
-from .roles import Role, UserRole
-from .permissions import Permission, RolePermission
+from .roles import Role
+from .user_roles import UserRoles
+from .permissions import Permission
+from .role_permissions import RolePermissions
 from .pokemon_user import PokemonUser
 from .pokemon import Pokemon
 from .move import Move

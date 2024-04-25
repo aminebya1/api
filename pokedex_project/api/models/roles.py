@@ -1,5 +1,4 @@
 from django.db import models
-from .users import User
 
 
 class Role(models.Model):
@@ -9,9 +8,3 @@ class Role(models.Model):
         db_table = 'roles'
 
 
-class UserRole(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    role = models.ForeignKey(Role, on_delete=models.CASCADE)
-
-    class Meta:
-        db_table = 'user_roles'

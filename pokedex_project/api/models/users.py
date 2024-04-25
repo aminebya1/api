@@ -1,6 +1,7 @@
 from django.contrib.auth.hashers import make_password
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.hashers import check_password
 
 
 class UserManager(BaseUserManager):
@@ -28,7 +29,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=255, unique=True)
-    password = models.CharField(max_length=255, default=make_password('123456.*'))
+    password_hash = models.CharField(max_length=255, default=make_password('123456.*'))
     created_at = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
@@ -38,6 +39,27 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
+
+    def check_password(self, raw_password):
+        return check_password(raw_password, self.password_hash)
+
+    def get_role(self):
+        from api.models import UserRoles
+        try:
+            user_role = UserRoles.objects.get(user=self)
+            return user_role.role
+        except UserRoles.DoesNotExist:
+            return None
+
+    def get_permissions(self):
+        role = self.get_role()
+        permissions = set()
+        if role:
+            from api.models import RolePermissions
+            role_permissions = RolePermissions.objects.filter(role=role)
+            for rp in role_permissions:
+                permissions.add(rp.permission.name)
+        return list(permissions)
 
     class Meta:
         db_table = 'users'
