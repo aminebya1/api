@@ -9,3 +9,4 @@ class Stats(models.Model):
 
     class Meta:
         db_table = 'stats'
+        managed = False  # vu que la base données du prof contient déjà cette table

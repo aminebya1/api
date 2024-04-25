@@ -10,3 +10,4 @@ class PokemonEggGroup(models.Model):
 
     class Meta:
         db_table = 'pokemon_egg_groups'
+        managed = False  # vu que la base données du prof contient déjà cette table

@@ -11,3 +11,4 @@ class PokemonMove(models.Model):
 
     class Meta:
         db_table = 'pokemon_moves'
+        managed = False  # vu que la base données du prof contient déjà cette table

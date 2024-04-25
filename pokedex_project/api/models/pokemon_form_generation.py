@@ -8,3 +8,4 @@ class PokemonFormGeneration(models.Model):
 
     class Meta:
         db_table = 'pokemon_form_generations'
+        managed = False  # vu que la base données du prof contient déjà cette table

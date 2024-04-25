@@ -10,3 +10,4 @@ class Items(models.Model):
 
     class Meta:
         db_table = 'items'
+        managed = False  # vu que la base données du prof contient déjà cette table

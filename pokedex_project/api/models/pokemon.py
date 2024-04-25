@@ -11,4 +11,6 @@ class Pokemon(models.Model):
 
     class Meta:
         db_table = 'pokemon'
+        managed = False  # vu que la base données du prof contient déjà cette table
+
 

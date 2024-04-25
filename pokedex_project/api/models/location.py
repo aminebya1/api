@@ -7,3 +7,4 @@ class Location(models.Model):
 
     class Meta:
         db_table = 'locations'
+        managed = False  # vu que la base données du prof contient déjà cette table

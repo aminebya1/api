@@ -8,3 +8,4 @@ class Type(models.Model):
 
     class Meta:
         db_table = 'types'
+        managed = False  # vu que la base données du prof contient déjà cette table
