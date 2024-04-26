@@ -4,7 +4,7 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
 
-from api.controllers import auth_controller,item_controller  # ou un import spécifique
+from api.controllers import auth_controller, item_controller, move_controller
 
 urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -12,8 +12,12 @@ urlpatterns = [
     path('api/connexion', auth_controller.login_user, name='login'),
     path('api/register', auth_controller.register_user, name='register'),
     path('api/items/<int:id>', item_controller.item_detail, name='item_detail'),
-    path('api/items/<int:id>/update', item_controller.update_item, name='update_item'),
+    path('apiitems/<int:id>/update', item_controller.update_item, name='update_item'),
     path('api/items/<int:id>/delete', item_controller.delete_item, name='delete_item'),
+    path('api/moves/<int:id>', move_controller.move_detail, name='move_detail'),
+    path('api/moves/<int:id>/update', move_controller.update_move, name='update_move'),
+    path('api/moves/<int:id>/delete', move_controller.delete_move, name='delete_move'),
+
 ]
 
 # swagger for doc
