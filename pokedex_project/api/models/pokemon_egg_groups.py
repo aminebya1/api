@@ -5,7 +5,7 @@ from .pokemon import Pokemon
 
 
 class PokemonEggGroup(models.Model):
-    species_id = models.ForeignKey(Pokemon, on_delete=models.CASCADE)
+    species_id = models.ForeignKey(Pokemon, on_delete=models.CASCADE, db_column='species_id')
     egg_group = models.ForeignKey(EggGroup, on_delete=models.CASCADE)
 
     class Meta:

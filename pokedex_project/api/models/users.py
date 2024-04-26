@@ -61,5 +61,11 @@ class User(AbstractBaseUser, PermissionsMixin):
                 permissions.add(rp.permission.name)
         return list(permissions)
 
+    def serialize(self):
+        return {
+            'id': self.id,
+            'username': self.username
+        }
+
     class Meta:
         db_table = 'users'

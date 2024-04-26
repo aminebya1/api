@@ -5,8 +5,8 @@ from .types import Type
 
 
 class PokemonType(models.Model):
-    pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE)
-    type = models.ForeignKey(Type, on_delete=models.CASCADE)
+    pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE, related_name="pokemon_types")
+    type = models.ForeignKey(Type, on_delete=models.CASCADE, related_name="pokemon_types")
     slot = models.IntegerField()
 
     class Meta:
