@@ -1,7 +1,7 @@
 from django.db import models
 
-from api.models import User
-from api.models import Role
+from .users import User
+from .roles import Role
 
 
 class UserRoles(models.Model):

@@ -27,3 +27,7 @@ def create_user(data):
         # Vous pouvez aussi choisir de lever une exception ou de gérer cela d'une autre manière.
 
     return user
+
+
+def fetch_all_users():
+    return User.objects.all()
