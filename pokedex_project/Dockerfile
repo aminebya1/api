@@ -1,20 +1,31 @@
+# Pull the official base image
 FROM python:3.9
 
-# Set unbuffered output for python
+# Set the working directory in the container
+WORKDIR /usr/src/app
+
+# Set environment variables to not generate pyc files and to force stdout and stderr streams to be unbuffered
+ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# Create app directory
-WORKDIR /app
+# Update the system and install dependencies for the project
+RUN apt-get update && apt-get install -y \
+    netcat-openbsd \
+    dos2unix
 
-# Install app dependencies
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+# Upgrade pip
+RUN pip install --upgrade pip
 
-# Bundle app source
+# Copy the requirements file and install Python dependencies
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt --no-cache-dir
+
+# Copy the Django project files into the container
 COPY . .
 
-# Expose port
-EXPOSE 8000
+# Copy entrypoint script into the container, convert line endings, and make it executable
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN dos2unix /usr/local/bin/entrypoint.sh && chmod +x /usr/local/bin/entrypoint.sh
 
-# entrypoint to run the django.sh file
-ENTRYPOINT ["/app/entrypoint.sh"]
+# Define the entrypoint script to be executed
+ENTRYPOINT ["bash", "/usr/local/bin/entrypoint.sh"]
