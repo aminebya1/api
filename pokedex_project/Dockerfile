@@ -1,19 +1,20 @@
-# Use an official Python runtime as a parent image
 FROM python:3.9
 
-# Set environment varibles
-ENV PYTHONDONTWRITEBYTECODE 1
+# Set unbuffered output for python
 ENV PYTHONUNBUFFERED 1
 
-# Set work directory
-WORKDIR /code
+# Create app directory
+WORKDIR /app
 
-# Install dependencies
-COPY requirements.txt /code/
+# Install app dependencies
+COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-# Copy project
-COPY . /code/
+# Bundle app source
+COPY . .
 
-# Run server
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8042"]
+# Expose port
+EXPOSE 8000
+
+# entrypoint to run the django.sh file
+ENTRYPOINT ["/app/entrypoint.sh"]
